@@ -1,0 +1,26 @@
+﻿apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pitflow-inventory
+  namespace: pitflow
+  labels:
+    app.kubernetes.io/name: pitflow-inventory
+    app.kubernetes.io/instance: pitflow-inventory
+    app.kubernetes.io/component: inventory
+    app.kubernetes.io/part-of: pitflow
+    app.kubernetes.io/managed-by: github-actions
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pitflow-inventory
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
