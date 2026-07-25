@@ -1,0 +1,29 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pitflow-inventory
+  namespace: pitflow
+  labels:
+    app.kubernetes.io/name: pitflow-inventory
+    app.kubernetes.io/instance: pitflow-inventory
+    app.kubernetes.io/component: inventory
+    app.kubernetes.io/part-of: pitflow
+    app.kubernetes.io/managed-by: github-actions
+  annotations:
+    alb.ingress.kubernetes.io/group.name: pitflow
+    alb.ingress.kubernetes.io/group.order: "20"
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /inventory
+            pathType: Prefix
+            backend:
+              service:
+                name: pitflow-inventory
+                port:
+                  name: http
+

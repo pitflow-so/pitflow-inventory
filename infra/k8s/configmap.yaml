@@ -1,0 +1,17 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pitflow-inventory-config
+  namespace: pitflow
+  labels:
+    app.kubernetes.io/name: pitflow-inventory
+    app.kubernetes.io/instance: pitflow-inventory
+    app.kubernetes.io/component: inventory
+    app.kubernetes.io/part-of: pitflow
+    app.kubernetes.io/managed-by: github-actions
+data:
+  DB_HOST: "${DB_HOST}"
+  DB_PORT: "${DB_PORT}"
+  DB_NAME: "${DB_NAME}"
+  DB_USERNAME: "${DB_USERNAME}"
+
