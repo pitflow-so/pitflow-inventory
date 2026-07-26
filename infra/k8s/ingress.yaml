@@ -12,7 +12,7 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/group.name: pitflow
     alb.ingress.kubernetes.io/group.order: "20"
-    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+    alb.ingress.kubernetes.io/healthcheck-path: /inventory/actuator/health
     alb.ingress.kubernetes.io/target-type: ip
 spec:
   ingressClassName: alb
@@ -26,4 +26,3 @@ spec:
                 name: pitflow-inventory
                 port:
                   name: http
-

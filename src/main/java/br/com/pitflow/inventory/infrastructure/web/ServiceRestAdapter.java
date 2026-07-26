@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/inventory/services")
+@RequestMapping("/services")
 @Tag(name = "Inventory - Services", description = "Endpoints para gestão do catálogo de serviços (Mão de Obra)")
 public class ServiceRestAdapter {
 
