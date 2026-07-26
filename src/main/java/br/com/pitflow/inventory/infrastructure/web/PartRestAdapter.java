@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/inventory/parts")
+@RequestMapping("/parts")
 @Tag(name = "Inventory - Parts", description = "Gerenciamento de peças e componentes")
 public class PartRestAdapter {
 

@@ -15,6 +15,8 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
 server:
+  servlet:
+    context-path: /inventory
   forward-headers-strategy: framework
 api:
   security:
