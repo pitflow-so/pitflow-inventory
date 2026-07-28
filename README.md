@@ -3,6 +3,8 @@
 Microsserviço responsável pelo catálogo de serviços de oficina e pelo estoque
 de peças usado na composição do orçamento das ordens de serviço.
 
+A qualidade do código é acompanhada continuamente pelo SonarQube Cloud.
+
 ## Responsabilidade e limites
 
 O Inventory é proprietário de serviços, peças, preços e quantidades de estoque.
