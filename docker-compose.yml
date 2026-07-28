@@ -1,0 +1,42 @@
+services:
+  inventory-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-pitflow-inventory-db}
+      POSTGRES_USER: ${DB_USERNAME:-pitflow_inventory}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pitflow_inventory_local}
+    ports:
+      - "${DB_PORT:-5434}:5432"
+    volumes:
+      - inventory-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  inventory:
+    build:
+      context: .
+    environment:
+      DB_HOST: inventory-db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-pitflow-inventory-db}
+      DB_USERNAME: ${DB_USERNAME:-pitflow_inventory}
+      DB_PASSWORD: ${DB_PASSWORD:-pitflow_inventory_local}
+      JWT_SECRET: ${JWT_SECRET:-364161b203a948480795c643b01859942a0094072f883b27b407a51801311099}
+      DATADOG_ENABLED: "false"
+    ports:
+      - "${HTTP_PORT:-18082}:8080"
+    depends_on:
+      inventory-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/inventory/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 18
+      start_period: 30s
+
+volumes:
+  inventory-postgres-data:
